@@ -1,0 +1,12 @@
+bin/
+reports/
+serveradar-*.md
+serveradar-*.json
+dist/
+.venv/
+__pycache__/
+pyproject.toml
+serverscope/
+bin/serverscope
+dist/serverscope-*
+.DS_Store
