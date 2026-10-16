@@ -1,5 +1,9 @@
 # Serveradar v0.1.1
 
+## New
+
+- `serveradar update` — self-update to the latest GitHub release (SHA256-verified, atomic replace). `serveradar update --check` only reports.
+
 ## Fixes
 
 - TUI crashed on start ("assignment to entry in nil map"): scan state was set on a copy of the model.

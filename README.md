@@ -19,6 +19,7 @@ sudo ./bin/serveradar  # TUI with full visibility (other users' sockets, /proc/*
 | `host resources processes network ports systemd cron docker kubernetes nginx tls projects databases firewall security` | One section as Markdown |
 | `findings` | Findings only |
 | `doctor` | Available tools, permissions, collectors per profile |
+| `update [--check]` | Self-update to the latest release (SHA256-verified; use sudo for /usr/local/bin) |
 
 Flags: `--profile quick|standard|deep`, `--config FILE`, `--timeout SEC`, `--show-env`.
 

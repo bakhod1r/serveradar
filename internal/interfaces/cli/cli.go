@@ -17,6 +17,7 @@ import (
 	"github.com/bakhod1r/serveradar/internal/infrastructure/configfile"
 	"github.com/bakhod1r/serveradar/internal/infrastructure/execx"
 	"github.com/bakhod1r/serveradar/internal/infrastructure/probe"
+	"github.com/bakhod1r/serveradar/internal/infrastructure/updater"
 	"github.com/bakhod1r/serveradar/internal/interfaces/render"
 	"github.com/bakhod1r/serveradar/internal/interfaces/tui"
 )
@@ -34,6 +35,7 @@ Usage:
   serveradar findings                    findings only
   serveradar doctor                      tools & permissions check
   serveradar version
+  serveradar update [--check]             self-update to the latest GitHub release (SHA256-verified)
 
 Flags:
   --profile quick|standard|deep   (default standard)
@@ -75,6 +77,7 @@ func Main(args []string) int {
 	myDocker := fs.Bool("mysql-docker", false, "")
 	redisLocal := fs.Bool("redis-local", false, "")
 	allDB := fs.Bool("db", false, "")
+	checkOnly := fs.Bool("check", false, "")
 	if err := fs.Parse(args); err != nil {
 		return 2
 	}
@@ -123,6 +126,8 @@ func Main(args []string) int {
 		fmt.Print(usage)
 	case "version":
 		fmt.Println("serveradar", scan.ToolVersion, "schema", inventory.SchemaVersion)
+	case "update":
+		return update(ctx, *checkOnly)
 	case "tui":
 		if err := tui.Run(svc, pol); err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -162,6 +167,33 @@ func Main(args []string) int {
 		r := svc.Run(ctx, pol, nil)
 		fmt.Print(render.Section(r, cmd))
 	}
+	return 0
+}
+
+func update(ctx context.Context, checkOnly bool) int {
+	rel, err := updater.Latest(ctx)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "update check failed:", err)
+		return 1
+	}
+	if !updater.Newer(scan.ToolVersion, rel.Tag) {
+		fmt.Printf("serveradar %s is up to date (latest %s)\n", scan.ToolVersion, rel.Tag)
+		return 0
+	}
+	fmt.Printf("update available: %s → %s  %s\n", scan.ToolVersion, rel.Tag, rel.URL)
+	if checkOnly {
+		return 0
+	}
+	exe, err := updater.Executable()
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return 1
+	}
+	if err := updater.Apply(ctx, rel, exe); err != nil {
+		fmt.Fprintln(os.Stderr, "update failed:", err)
+		return 1
+	}
+	fmt.Printf("updated %s to %s (checksum verified)\n", exe, rel.Tag)
 	return 0
 }
 
