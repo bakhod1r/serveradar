@@ -108,11 +108,17 @@ install_all() {
 	need_root "$@"
 	detect
 	obtain
-	"$TMP/$NAME" version >/dev/null 2>&1 || die "binary does not run on this host ($ASSET)"
+	chmod 0755 "$TMP/$NAME"
 
 	say "installing $BIN_DIR/$NAME"
 	install -d -m 0755 "$BIN_DIR"
-	install -m 0755 "$TMP/$NAME" "$BIN_DIR/$NAME"
+	install -m 0755 "$TMP/$NAME" "$BIN_DIR/$NAME.new"
+	# run the check from the install dir: /tmp is often mounted noexec on hardened servers
+	if ! out=$("$BIN_DIR/$NAME.new" version 2>&1); then
+		rm -f "$BIN_DIR/$NAME.new"
+		die "binary does not run on this host ($ASSET, $(uname -sm)): $out"
+	fi
+	mv -f "$BIN_DIR/$NAME.new" "$BIN_DIR/$NAME"
 
 	install -d -m 0700 "$CONF_DIR" "$DATA_DIR" "$DATA_DIR/reports"
 	if [ ! -f "$CONF_DIR/config.json" ]; then
