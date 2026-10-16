@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/bakhod1r/serveradar/internal/domain/inventory"
 	"github.com/bakhod1r/serveradar/internal/infrastructure/execx"
 	"github.com/bakhod1r/serveradar/internal/infrastructure/redact"
-	"github.com/bakhod1r/serveradar/internal/domain/inventory"
 )
 
 func init() {

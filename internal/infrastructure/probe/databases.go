@@ -162,17 +162,17 @@ func configFacts(c Ctx, kind, path string) map[string]string {
 		return nil
 	}
 	keys := map[string][]string{
-		"postgresql": {"listen_addresses", "port", "ssl", "wal_level", "max_connections", "data_directory", "hba_file", "archive_mode", "hot_standby", "primary_conninfo", "shared_buffers"},
-		"mysql":      {"bind-address", "port", "server-id", "gtid_mode", "log_bin", "require_secure_transport", "datadir", "group_replication_group_name", "wsrep_on", "wsrep_cluster_name"},
-		"mariadb":    {"bind-address", "port", "server-id", "log_bin", "datadir", "wsrep_on", "wsrep_cluster_name"},
-		"redis":      {"bind", "port", "protected-mode", "requirepass", "replicaof", "slaveof", "cluster-enabled", "appendonly", "maxmemory", "save", "tls-port"},
-		"valkey":     {"bind", "port", "protected-mode", "requirepass", "replicaof", "cluster-enabled", "appendonly", "maxmemory"},
+		"postgresql":     {"listen_addresses", "port", "ssl", "wal_level", "max_connections", "data_directory", "hba_file", "archive_mode", "hot_standby", "primary_conninfo", "shared_buffers"},
+		"mysql":          {"bind-address", "port", "server-id", "gtid_mode", "log_bin", "require_secure_transport", "datadir", "group_replication_group_name", "wsrep_on", "wsrep_cluster_name"},
+		"mariadb":        {"bind-address", "port", "server-id", "log_bin", "datadir", "wsrep_on", "wsrep_cluster_name"},
+		"redis":          {"bind", "port", "protected-mode", "requirepass", "replicaof", "slaveof", "cluster-enabled", "appendonly", "maxmemory", "save", "tls-port"},
+		"valkey":         {"bind", "port", "protected-mode", "requirepass", "replicaof", "cluster-enabled", "appendonly", "maxmemory"},
 		"redis-sentinel": {"port", "sentinel monitor"},
-		"pgbouncer":  {"listen_addr", "listen_port", "pool_mode", "max_client_conn", "auth_type"},
-		"elasticsearch": {"cluster.name", "network.host", "http.port", "discovery.seed_hosts", "xpack.security.enabled"},
-		"opensearch": {"cluster.name", "network.host", "http.port", "discovery.seed_hosts"},
-		"kafka":      {"broker.id", "node.id", "listeners", "advertised.listeners", "process.roles", "zookeeper.connect", "log.dirs"},
-		"cassandra":  {"cluster_name", "listen_address", "rpc_address", "seeds"},
+		"pgbouncer":      {"listen_addr", "listen_port", "pool_mode", "max_client_conn", "auth_type"},
+		"elasticsearch":  {"cluster.name", "network.host", "http.port", "discovery.seed_hosts", "xpack.security.enabled"},
+		"opensearch":     {"cluster.name", "network.host", "http.port", "discovery.seed_hosts"},
+		"kafka":          {"broker.id", "node.id", "listeners", "advertised.listeners", "process.roles", "zookeeper.connect", "log.dirs"},
+		"cassandra":      {"cluster_name", "listen_address", "rpc_address", "seeds"},
 	}[kind]
 	if keys == nil {
 		return map[string]string{"present": "yes"}

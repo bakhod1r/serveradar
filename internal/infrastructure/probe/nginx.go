@@ -76,7 +76,9 @@ func collectNginx(c Ctx) (any, error) {
 	for path, txt := range files {
 		parseNginx(n, path, txt)
 	}
-	sortBy(n.Vhosts, func(a, b inventory.Vhost) bool { return strings.Join(a.ServerNames, ",") < strings.Join(b.ServerNames, ",") })
+	sortBy(n.Vhosts, func(a, b inventory.Vhost) bool {
+		return strings.Join(a.ServerNames, ",") < strings.Join(b.ServerNames, ",")
+	})
 	return n, nil
 }
 

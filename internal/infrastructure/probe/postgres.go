@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
-	"strconv"
 	"os"
 	"os/user"
 	"runtime"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -131,7 +131,7 @@ const (
 	qSlots = `SELECT json_agg(json_build_object('name', slot_name, 'type', slot_type, 'active', active, 'database', coalesce(database, ''),
   'retained_wal', CASE WHEN pg_is_in_recovery() OR restart_lsn IS NULL THEN '' ELSE pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), restart_lsn)) END))::text
   FROM pg_replication_slots`
-	qWalRecv = `SELECT coalesce((SELECT sender_host || ':' || sender_port FROM pg_stat_wal_receiver LIMIT 1), '')`
+	qWalRecv  = `SELECT coalesce((SELECT sender_host || ':' || sender_port FROM pg_stat_wal_receiver LIMIT 1), '')`
 	qDBDetail = `SELECT json_build_object(
   'schemas', coalesce((SELECT json_agg(nspname ORDER BY nspname) FROM pg_namespace WHERE nspname !~ '^pg_' AND nspname <> 'information_schema'), '[]'::json),
   'extensions', coalesce((SELECT json_agg(extname || ' ' || extversion ORDER BY extname) FROM pg_extension), '[]'::json),

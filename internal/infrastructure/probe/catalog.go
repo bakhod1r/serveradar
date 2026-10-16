@@ -147,7 +147,7 @@ var extraDBSigs = []dbSig{
 	{"redpanda", []string{"redpanda"}, []int{9092, 9644}, []string{"redpanda"}, nil},
 	{"hbase", []string{"hbase"}, []int{16010}, []string{"hbase"}, nil},
 	{"druid", []string{"druid"}, []int{8888}, []string{"apache/druid"}, nil},
-	}
+}
 
 func init() {
 	for _, s := range extraDBSigs {

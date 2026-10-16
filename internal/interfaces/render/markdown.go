@@ -30,13 +30,13 @@ type md struct {
 
 // mdState: when collapse is on, ## and ### headings become nested <details> blocks.
 type mdState struct {
-	collapse     bool
-	grp, h2, h3  bool
-	htmlCharts   bool
-	report       *inventory.Report
-	shownCfg     map[string]bool
-	openNext     bool
-	anchor       string
+	collapse    bool
+	grp, h2, h3 bool
+	htmlCharts  bool
+	report      *inventory.Report
+	shownCfg    map[string]bool
+	openNext    bool
+	anchor      string
 }
 
 func (m md) p(f string, a ...any) { fmt.Fprintf(m.w, f+"\n", a...) }
@@ -112,7 +112,9 @@ func (m md) section2(anchor, title string, open bool) {
 	m.h(2, title)
 }
 
-func html(s string) string { return strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;").Replace(s) }
+func html(s string) string {
+	return strings.NewReplacer("&", "&amp;", "<", "&lt;", ">", "&gt;").Replace(s)
+}
 func (m md) table(head []string, rows [][]string) {
 	m.p("")
 	if len(rows) == 0 {

@@ -13,14 +13,14 @@ import (
 type category string
 
 const (
-	catData  category = "database/cache"
-	catAdmin category = "admin/control-plane"
-	catWeb   category = "web"
+	catData   category = "database/cache"
+	catAdmin  category = "admin/control-plane"
+	catWeb    category = "web"
 	catRemote category = "remote access"
-	catDev   category = "dev/debug"
-	catMail  category = "mail"
-	catInfra category = "infra"
-	catOther category = "other"
+	catDev    category = "dev/debug"
+	catMail   category = "mail"
+	catInfra  category = "infra"
+	catOther  category = "other"
 )
 
 type known struct {

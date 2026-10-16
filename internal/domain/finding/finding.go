@@ -107,7 +107,7 @@ func publicDBRule(r *inventory.Report, _ *policy.Policy) (out []F) {
 		if name, isDB := dbPorts[s.Port]; isDB && s.Public && s.Proto == "tcp" {
 			out = append(out, F{ID: "DBBIND", Title: name + " listening on all interfaces", Severity: inventory.High, Component: fmt.Sprintf("%s:%d", s.Address, s.Port),
 				Evidence: fmt.Sprintf("%s bound to %s:%d (pid %d %s)", name, s.Address, s.Port, s.PID, s.Process), Confidence: inventory.Strong,
-				Impact: "May be reachable from network; actual exposure depends on firewall/NAT/cloud security groups.",
+				Impact:   "May be reachable from network; actual exposure depends on firewall/NAT/cloud security groups.",
 				NextStep: "Bind to 127.0.0.1/private IP or restrict via firewall; verify with external scan from authorized host.", Method: "socket inventory"})
 		}
 	}

@@ -1,5 +1,5 @@
 BIN := bin/serveradar
-VERSION ?= v0.1.0
+VERSION ?= v0.1.1
 LDFLAGS := -s -w -X github.com/bakhod1r/serveradar/internal/application/scan.ToolVersion=$(VERSION)
 
 .PHONY: build linux dist install test report run

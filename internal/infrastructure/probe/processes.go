@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/bakhod1r/serveradar/internal/infrastructure/execx"
 	"github.com/bakhod1r/serveradar/internal/domain/inventory"
+	"github.com/bakhod1r/serveradar/internal/infrastructure/execx"
 	"github.com/bakhod1r/serveradar/internal/infrastructure/redact"
 )
 
@@ -17,7 +17,6 @@ func init() {
 	register(Collector{Name: "processes", Title: "Processes", Profiles: everywhere, Collect: collectProcesses})
 	register(Collector{Name: "resources", Title: "Resource Usage", Profiles: everywhere, Depends: []string{"processes", "host"}, Collect: collectResources})
 }
-
 
 func collectProcesses(c Ctx) (any, error) {
 	if runtime.GOOS == "linux" {

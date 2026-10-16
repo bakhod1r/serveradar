@@ -45,9 +45,9 @@ type Ports struct {
 	Sockets []Socket `json:"listening"`
 	Method  string   `json:"method"`
 	// IP lists
-	LocalIPs  []string `json:"local_ips"`
-	Peers     []Peer   `json:"established_peers"`
-	PeerNote  string   `json:"peer_note,omitempty"`
+	LocalIPs []string `json:"local_ips"`
+	Peers    []Peer   `json:"established_peers"`
+	PeerNote string   `json:"peer_note,omitempty"`
 }
 
 type UnitMem struct {
@@ -58,22 +58,22 @@ type UnitMem struct {
 }
 
 type Systemd struct {
-	Units           []Unit    `json:"services"`
-	Failed          []string  `json:"failed"`
-	EnabledInactive []string  `json:"enabled_but_inactive"`
-	Timers          []string  `json:"timers"`
-	Usage           []UnitMem `json:"service_resource_usage"`
-	Details         []ServiceUnit `json:"service_details"`
-	Sockets         []string      `json:"socket_units,omitempty"`
-	Mounts          []string      `json:"mount_units,omitempty"`
+	Units           []Unit         `json:"services"`
+	Failed          []string       `json:"failed"`
+	EnabledInactive []string       `json:"enabled_but_inactive"`
+	Timers          []string       `json:"timers"`
+	Usage           []UnitMem      `json:"service_resource_usage"`
+	Details         []ServiceUnit  `json:"service_details"`
+	Sockets         []string       `json:"socket_units,omitempty"`
+	Mounts          []string       `json:"mount_units,omitempty"`
 	Counts          map[string]int `json:"counts"`
 }
 
 type CronJob struct {
-	Source   string `json:"source"`
-	User     string `json:"user"`
-	Schedule string `json:"schedule"`
-	Command  string `json:"command"` // redacted
+	Source      string   `json:"source"`
+	User        string   `json:"user"`
+	Schedule    string   `json:"schedule"`
+	Command     string   `json:"command"` // redacted
 	Description string   `json:"description,omitempty"`
 	NextRun     string   `json:"next_run,omitempty"`
 	PerDay      float64  `json:"runs_per_day"`
@@ -82,12 +82,12 @@ type CronJob struct {
 }
 
 type Cron struct {
-	Jobs        []CronJob `json:"jobs"`
-	Unreadable  []string  `json:"unreadable,omitempty"`
-	LaunchAgents []string `json:"launchd_jobs,omitempty"`
-	Supervisors []string  `json:"process_supervisors,omitempty"`
-	Timers      []Timer   `json:"systemd_timers,omitempty"`
-	Summary     []string  `json:"summary"`
+	Jobs         []CronJob `json:"jobs"`
+	Unreadable   []string  `json:"unreadable,omitempty"`
+	LaunchAgents []string  `json:"launchd_jobs,omitempty"`
+	Supervisors  []string  `json:"process_supervisors,omitempty"`
+	Timers       []Timer   `json:"systemd_timers,omitempty"`
+	Summary      []string  `json:"summary"`
 }
 
 type Kubernetes struct {
@@ -98,7 +98,7 @@ type Kubernetes struct {
 }
 
 type TLS struct {
-	Certs []Cert `json:"certificates"`
+	Certs   []Cert   `json:"certificates"`
 	Renewal []string `json:"renewal_tooling"`
 }
 
@@ -126,8 +126,8 @@ type DBConfigFacts struct {
 }
 
 type Databases struct {
-	Services []Service      `json:"services"`
-	Mongo    []MongoDetail  `json:"mongodb,omitempty"`
+	Services []Service       `json:"services"`
+	Mongo    []MongoDetail   `json:"mongodb,omitempty"`
 	Configs  []DBConfigFacts `json:"config_facts,omitempty"`
 }
 

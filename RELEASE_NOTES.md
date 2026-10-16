@@ -1,3 +1,13 @@
+# Serveradar v0.1.1
+
+## Fixes
+
+- TUI crashed on start ("assignment to entry in nil map"): scan state was set on a copy of the model.
+- install.sh: binary is made executable before the self-check, and the check runs from the install dir (works with noexec /tmp).
+- Linux: processes and listening sockets read from /proc (works without ps/ss, e.g. BusyBox); bind-mounted files no longer listed as disks.
+
+---
+
 # Serveradar v0.1.0
 
 First public release. Read-only server discovery, inventory and diagnostics in a single static binary with a TUI and HTML/Markdown/JSON reports.

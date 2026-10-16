@@ -3,16 +3,16 @@ package probe
 import (
 	"fmt"
 	"net"
-	"slices"
 	"os"
 	"regexp"
 	"runtime"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/bakhod1r/serveradar/internal/infrastructure/execx"
 	"github.com/bakhod1r/serveradar/internal/domain/inventory"
+	"github.com/bakhod1r/serveradar/internal/infrastructure/execx"
 )
 
 func init() {

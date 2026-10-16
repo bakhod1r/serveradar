@@ -3,15 +3,15 @@ package inventory
 // Authenticated, read-only data-store inspection results. Metadata only: no rows, keys, values or secrets.
 
 type PGDatabase struct {
-	Name        string    `json:"name"`
-	Owner       string    `json:"owner"`
-	Encoding    string    `json:"encoding"`
-	Collate     string    `json:"collate"`
-	ConnLimit   int       `json:"conn_limit"`
-	AllowConn   bool      `json:"allow_conn"`
-	IsTemplate  bool      `json:"is_template"`
-	SizeBytes   int64     `json:"size_bytes"`
-	Connections int       `json:"connections"`
+	Name        string      `json:"name"`
+	Owner       string      `json:"owner"`
+	Encoding    string      `json:"encoding"`
+	Collate     string      `json:"collate"`
+	ConnLimit   int         `json:"conn_limit"`
+	AllowConn   bool        `json:"allow_conn"`
+	IsTemplate  bool        `json:"is_template"`
+	SizeBytes   int64       `json:"size_bytes"`
+	Connections int         `json:"connections"`
 	Detail      *PGDBDetail `json:"detail,omitempty"`
 }
 
@@ -59,13 +59,13 @@ type PGHBARule struct {
 }
 
 type PGActivity struct {
-	Database   string `json:"datname"`
-	User       string `json:"usename"`
-	State      string `json:"state"`
-	Client     string `json:"client"`
-	N          int    `json:"n"`
-	MaxQuerySec int   `json:"max_query_sec"`
-	MaxXactSec  int   `json:"max_xact_sec"`
+	Database    string `json:"datname"`
+	User        string `json:"usename"`
+	State       string `json:"state"`
+	Client      string `json:"client"`
+	N           int    `json:"n"`
+	MaxQuerySec int    `json:"max_query_sec"`
+	MaxXactSec  int    `json:"max_xact_sec"`
 }
 
 type PGReplica struct {
@@ -85,8 +85,8 @@ type PGSlot struct {
 }
 
 type PGInstance struct {
-	Target       string            `json:"target"`  // redacted endpoint description
-	Via          string            `json:"via"`     // dsn | local-psql | docker-exec
+	Target       string            `json:"target"` // redacted endpoint description
+	Via          string            `json:"via"`    // dsn | local-psql | docker-exec
 	Version      string            `json:"version"`
 	InRecovery   bool              `json:"in_recovery"`
 	Settings     map[string]string `json:"settings"`
@@ -116,18 +116,18 @@ type RedisClientGroup struct {
 }
 
 type RedisInstance struct {
-	Target     string              `json:"target"`
-	Via        string              `json:"via"`
-	AuthNeeded bool                `json:"auth_required"`
-	Error      string              `json:"error,omitempty"`
-	Info       map[string]string   `json:"info"`   // selected INFO fields
-	Config     map[string]string   `json:"config"` // CONFIG GET (non-secret keys)
-	Keyspace   map[string]string   `json:"keyspace"`
-	Users      []string            `json:"acl_users"` // flags only, passwords stripped
-	Clients    []RedisClientGroup  `json:"clients"`
-	Replicas   []string            `json:"replicas"`
-	Cluster    map[string]string   `json:"cluster,omitempty"`
-	Exposure   []string            `json:"exposure"`
+	Target     string             `json:"target"`
+	Via        string             `json:"via"`
+	AuthNeeded bool               `json:"auth_required"`
+	Error      string             `json:"error,omitempty"`
+	Info       map[string]string  `json:"info"`   // selected INFO fields
+	Config     map[string]string  `json:"config"` // CONFIG GET (non-secret keys)
+	Keyspace   map[string]string  `json:"keyspace"`
+	Users      []string           `json:"acl_users"` // flags only, passwords stripped
+	Clients    []RedisClientGroup `json:"clients"`
+	Replicas   []string           `json:"replicas"`
+	Cluster    map[string]string  `json:"cluster,omitempty"`
+	Exposure   []string           `json:"exposure"`
 }
 
 type Redis struct {
@@ -228,9 +228,9 @@ type DBAccessCheck struct {
 	Owner   string `json:"owner"`   // container or process
 	Address string `json:"address"` // address dialed
 	Port    int    `json:"port"`
-	Path    string `json:"path"`   // loopback | LAN <ip> | not published
-	TCP     string `json:"tcp"`    // open | closed | timeout
-	Auth    string `json:"auth"`   // what the server demands from an anonymous client
+	Path    string `json:"path"` // loopback | LAN <ip> | not published
+	TCP     string `json:"tcp"`  // open | closed | timeout
+	Auth    string `json:"auth"` // what the server demands from an anonymous client
 	Verdict string `json:"verdict"`
 	Detail  string `json:"detail,omitempty"`
 }

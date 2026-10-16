@@ -67,9 +67,9 @@ func TestCronParse(t *testing.T) {
 
 func TestRedact(t *testing.T) {
 	cases := map[string]string{
-		"postgres://user:pw@db:5432/x":     "hunter",
-		"--password=hunter2 --port 1":       "hunter2",
-		"Authorization: Bearer abcdefghijk": "abcdefghijk",
+		"postgres://user:pw@db:5432/x":           "hunter",
+		"--password=hunter2 --port 1":            "hunter2",
+		"Authorization: Bearer abcdefghijk":      "abcdefghijk",
 		"token ghp_abcdefghijklmnopqrstuvwxyz12": "ghp_",
 	}
 	for in, secret := range cases {

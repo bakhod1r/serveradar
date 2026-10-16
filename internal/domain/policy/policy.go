@@ -24,12 +24,12 @@ type Policy struct {
 	Only            []string      `json:"-"`
 	NginxDump       bool          `json:"use_nginx_dump"`
 	ShowEnv         bool          `json:"show_env_values"`
-	PGDSNs          []string      `json:"postgres_dsns"`    // explicit targets; may use PGPASSFILE
-	PGLocal         bool          `json:"postgres_local"`   // psql as OS user postgres via unix socket
-	PGDocker        bool          `json:"postgres_docker"`  // docker exec psql in postgres containers
+	PGDSNs          []string      `json:"postgres_dsns"`   // explicit targets; may use PGPASSFILE
+	PGLocal         bool          `json:"postgres_local"`  // psql as OS user postgres via unix socket
+	PGDocker        bool          `json:"postgres_docker"` // docker exec psql in postgres containers
 	PGMaxDBs        int           `json:"postgres_max_dbs"`
 	RedisURLs       []string      `json:"redis_urls"`
-	RedisLocal      bool          `json:"redis_local"`      // try discovered endpoints without auth
+	RedisLocal      bool          `json:"redis_local"` // try discovered endpoints without auth
 	MySQLDSNs       []string      `json:"mysql_dsns"`
 	MySQLLocal      bool          `json:"mysql_local"`
 	MySQLDocker     bool          `json:"mysql_docker"` // docker exec; root password read inside container only
@@ -62,8 +62,12 @@ func (p *Policy) Validate() error {
 }
 
 // DeepDataStores: deep profile turns on local/docker datastore inspection.
-func (p *Policy) PGEnabled() bool    { return len(p.PGDSNs) > 0 || p.PGLocal || p.PGDocker || p.Profile == "deep" }
-func (p *Policy) RedisEnabled() bool { return len(p.RedisURLs) > 0 || p.RedisLocal || p.Profile == "deep" }
+func (p *Policy) PGEnabled() bool {
+	return len(p.PGDSNs) > 0 || p.PGLocal || p.PGDocker || p.Profile == "deep"
+}
+func (p *Policy) RedisEnabled() bool {
+	return len(p.RedisURLs) > 0 || p.RedisLocal || p.Profile == "deep"
+}
 func (p *Policy) MySQLEnabled() bool {
 	return len(p.MySQLDSNs) > 0 || p.MySQLLocal || p.MySQLDocker || p.Profile == "deep"
 }

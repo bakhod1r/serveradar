@@ -11,8 +11,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/bakhod1r/serveradar/internal/domain/finding"
 	"github.com/bakhod1r/serveradar/internal/domain/exposure"
+	"github.com/bakhod1r/serveradar/internal/domain/finding"
 	"github.com/bakhod1r/serveradar/internal/domain/inventory"
 	"github.com/bakhod1r/serveradar/internal/domain/policy"
 	"github.com/bakhod1r/serveradar/internal/domain/topology"

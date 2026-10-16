@@ -3,9 +3,9 @@ package tui
 
 import (
 	"context"
-	"regexp"
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 	"unicode/utf8"
@@ -24,9 +24,9 @@ import (
 )
 
 var (
-	accent   = lipgloss.Color("39")
-	dim      = lipgloss.Color("244")
-	sevColor = map[inventory.Severity]lipgloss.Color{"critical": "196", "high": "208", "medium": "220", "low": "75", "info": "244"}
+	accent    = lipgloss.Color("39")
+	dim       = lipgloss.Color("244")
+	sevColor  = map[inventory.Severity]lipgloss.Color{"critical": "196", "high": "208", "medium": "220", "low": "75", "info": "244"}
 	statColor = map[inventory.Status]lipgloss.Color{"ok": "42", "partial": "220", "unavailable": "244", "error": "196", "skipped": "244"}
 
 	titleSt = lipgloss.NewStyle().Bold(true).Foreground(lipgloss.Color("231")).Background(accent).Padding(0, 1)
@@ -48,22 +48,23 @@ type flashMsg string
 type item struct{ key, label string }
 
 type Model struct {
-	svc      scan.Service
-	pol      *policy.Policy
-	rep      *inventory.Report
-	scanning bool
-	done     map[string]*inventory.CollectorResult
-	total    int
-	items    []item
-	sel      int
-	vp       viewport.Model
-	spin     spinner.Model
-	search   textinput.Model
+	svc       scan.Service
+	pol       *policy.Policy
+	rep       *inventory.Report
+	scanning  bool
+	done      map[string]*inventory.CollectorResult
+	total     int
+	items     []item
+	sel       int
+	vp        viewport.Model
+	spin      spinner.Model
+	search    textinput.Model
 	searching bool
-	filter   string
-	w, h     int
-	flash    string
-	ch       chan tea.Msg
+	filter    string
+	w, h      int
+	flash     string
+	ch        chan tea.Msg
+	initCmd   tea.Cmd
 }
 
 func New(svc scan.Service, pol *policy.Policy) Model {
@@ -72,7 +73,9 @@ func New(svc scan.Service, pol *policy.Policy) Model {
 	ti := textinput.New()
 	ti.Placeholder = "filter lines…"
 	ti.Prompt = "/ "
-	return Model{svc: svc, pol: pol, spin: sp, search: ti, vp: viewport.New(80, 20)}
+	m := Model{svc: svc, pol: pol, spin: sp, search: ti, vp: viewport.New(80, 20), done: map[string]*inventory.CollectorResult{}}
+	m.initCmd = m.startScan() // must mutate the model Bubble Tea will own, not a copy inside Init
+	return m
 }
 
 func Run(svc scan.Service, pol *policy.Policy) error {
@@ -80,7 +83,7 @@ func Run(svc scan.Service, pol *policy.Policy) error {
 	return err
 }
 
-func (m Model) Init() tea.Cmd { return tea.Batch(m.spin.Tick, m.startScan()) }
+func (m Model) Init() tea.Cmd { return tea.Batch(m.spin.Tick, m.initCmd) }
 
 func (m *Model) startScan() tea.Cmd {
 	m.scanning, m.done, m.rep = true, map[string]*inventory.CollectorResult{}, nil
@@ -110,6 +113,9 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.refresh()
 		}
 	case progressMsg:
+		if m.done == nil {
+			m.done = map[string]*inventory.CollectorResult{}
+		}
 		m.done[msg.name] = msg.r
 		m.refresh()
 		return m, wait(m.ch)
@@ -164,7 +170,8 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "r":
 			if !m.scanning {
 				m.items = nil
-				return m, tea.Batch(m.startScan(), m.spin.Tick)
+				cmd := m.startScan()
+				return m, tea.Batch(cmd, m.spin.Tick)
 			}
 		case "m":
 			return m, m.export("md")
@@ -177,13 +184,15 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if !m.scanning {
 				m.items = nil
 				m.flash = "DB inspection on — rescanning"
-				return m, tea.Batch(m.startScan(), m.spin.Tick)
+				cmd := m.startScan()
+				return m, tea.Batch(cmd, m.spin.Tick)
 			}
 		case "p":
 			m.cycleProfile()
 			if !m.scanning {
 				m.items = nil
-				return m, tea.Batch(m.startScan(), m.spin.Tick)
+				cmd := m.startScan()
+				return m, tea.Batch(cmd, m.spin.Tick)
 			}
 		default:
 			var c tea.Cmd

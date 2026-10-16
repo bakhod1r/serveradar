@@ -37,9 +37,9 @@ func Parse(expr string) (*Spec, error) {
 		return nil, fmt.Errorf("expected 5 fields, got %d", len(f))
 	}
 	type fld struct {
-		dst      *[64]bool
-		lo, hi   int
-		names    map[string]int
+		dst    *[64]bool
+		lo, hi int
+		names  map[string]int
 	}
 	fs := []fld{{&s.min, 0, 59, nil}, {&s.hour, 0, 23, nil}, {&s.dom, 1, 31, nil}, {&s.mon, 1, 12, monNames}, {&s.dow, 0, 7, dowNames}}
 	for i, x := range fs {

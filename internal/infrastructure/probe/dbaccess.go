@@ -268,7 +268,6 @@ func redisHandshake(conn net.Conn) (string, string) {
 	return "unknown", truncate(line, 80)
 }
 
-
 func isDockerProxy(p string) bool {
 	return strings.HasPrefix(p, "com.docke") || strings.HasPrefix(p, "docker") || strings.HasPrefix(p, "vpnkit") || strings.HasPrefix(p, "rootlessk")
 }

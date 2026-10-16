@@ -103,26 +103,26 @@ type Mount struct {
 }
 
 type Host struct {
-	Hostname      string     `json:"hostname"`
-	OS            string     `json:"os"`
-	Distro        string     `json:"distro"`
-	Kernel        string     `json:"kernel"`
-	Arch          string     `json:"arch"`
-	MachineIDHash string     `json:"machine_id_hash,omitempty"`
-	BootTime      time.Time  `json:"boot_time"`
-	UptimeSec     int64      `json:"uptime_sec"`
-	Timezone      string     `json:"timezone"`
-	Virtualization string    `json:"virtualization,omitempty"`
-	CPUModel      string     `json:"cpu_model"`
-	CPUs          int        `json:"logical_cpus"`
-	Load          [3]float64 `json:"load_avg"`
-	MemTotal      uint64     `json:"mem_total"`
-	MemAvailable  uint64     `json:"mem_available"`
-	MemCached     uint64     `json:"mem_cached"`
-	SwapTotal     uint64     `json:"swap_total"`
-	SwapFree      uint64     `json:"swap_free"`
-	Mounts        []Mount    `json:"mounts"`
-	RebootRequired bool      `json:"reboot_required"`
+	Hostname       string     `json:"hostname"`
+	OS             string     `json:"os"`
+	Distro         string     `json:"distro"`
+	Kernel         string     `json:"kernel"`
+	Arch           string     `json:"arch"`
+	MachineIDHash  string     `json:"machine_id_hash,omitempty"`
+	BootTime       time.Time  `json:"boot_time"`
+	UptimeSec      int64      `json:"uptime_sec"`
+	Timezone       string     `json:"timezone"`
+	Virtualization string     `json:"virtualization,omitempty"`
+	CPUModel       string     `json:"cpu_model"`
+	CPUs           int        `json:"logical_cpus"`
+	Load           [3]float64 `json:"load_avg"`
+	MemTotal       uint64     `json:"mem_total"`
+	MemAvailable   uint64     `json:"mem_available"`
+	MemCached      uint64     `json:"mem_cached"`
+	SwapTotal      uint64     `json:"swap_total"`
+	SwapFree       uint64     `json:"swap_free"`
+	Mounts         []Mount    `json:"mounts"`
+	RebootRequired bool       `json:"reboot_required"`
 }
 
 type Process struct {
@@ -172,41 +172,41 @@ type Unit struct {
 }
 
 type Container struct {
-	ID         string   `json:"id"`
-	Name       string   `json:"name"`
-	Image      string   `json:"image"`
-	State      string   `json:"state"`
-	Status     string   `json:"status"`
-	Health     string   `json:"health,omitempty"`
-	Restart    string   `json:"restart_policy,omitempty"`
-	RestartCnt int      `json:"restart_count"`
-	Created    string   `json:"created"`
-	Ports      []string `json:"ports"`
-	Privileged bool     `json:"privileged"`
-	HostNet    bool     `json:"host_network"`
-	HostPID    bool     `json:"host_pid"`
-	CapAdd     []string `json:"cap_add,omitempty"`
-	Mounts     []string `json:"mounts,omitempty"`
-	SocketMount bool    `json:"docker_socket_mount"`
-	Compose    string   `json:"compose_project,omitempty"`
-	ComposeDir string   `json:"compose_dir,omitempty"`
-	EnvCount   int      `json:"env_var_count"`
-	Env        []string `json:"env,omitempty"`
-	Networks   map[string]string `json:"networks,omitempty"` // network -> ip
-	Cmd        string   `json:"cmd,omitempty"`
+	ID          string            `json:"id"`
+	Name        string            `json:"name"`
+	Image       string            `json:"image"`
+	State       string            `json:"state"`
+	Status      string            `json:"status"`
+	Health      string            `json:"health,omitempty"`
+	Restart     string            `json:"restart_policy,omitempty"`
+	RestartCnt  int               `json:"restart_count"`
+	Created     string            `json:"created"`
+	Ports       []string          `json:"ports"`
+	Privileged  bool              `json:"privileged"`
+	HostNet     bool              `json:"host_network"`
+	HostPID     bool              `json:"host_pid"`
+	CapAdd      []string          `json:"cap_add,omitempty"`
+	Mounts      []string          `json:"mounts,omitempty"`
+	SocketMount bool              `json:"docker_socket_mount"`
+	Compose     string            `json:"compose_project,omitempty"`
+	ComposeDir  string            `json:"compose_dir,omitempty"`
+	EnvCount    int               `json:"env_var_count"`
+	Env         []string          `json:"env,omitempty"`
+	Networks    map[string]string `json:"networks,omitempty"` // network -> ip
+	Cmd         string            `json:"cmd,omitempty"`
 }
 
 type Docker struct {
-	Version    string      `json:"version"`
-	Rootless   bool        `json:"rootless"`
-	Containers []Container `json:"containers"`
-	Images     []map[string]string `json:"images"`
-	Dangling   int         `json:"dangling_images"`
-	Networks   []map[string]string `json:"networks"`
-	Volumes    []map[string]string `json:"volumes"`
-	OrphanVols []string    `json:"unattached_volumes"`
-	Stats      []map[string]string `json:"container_stats,omitempty"`
-	ComposeProjects map[string]string `json:"compose_projects,omitempty"`
+	Version         string              `json:"version"`
+	Rootless        bool                `json:"rootless"`
+	Containers      []Container         `json:"containers"`
+	Images          []map[string]string `json:"images"`
+	Dangling        int                 `json:"dangling_images"`
+	Networks        []map[string]string `json:"networks"`
+	Volumes         []map[string]string `json:"volumes"`
+	OrphanVols      []string            `json:"unattached_volumes"`
+	Stats           []map[string]string `json:"container_stats,omitempty"`
+	ComposeProjects map[string]string   `json:"compose_projects,omitempty"`
 }
 
 type Vhost struct {
@@ -257,12 +257,12 @@ type Git struct {
 }
 
 type Service struct {
-	Kind     string   `json:"kind"`
-	Source   []string `json:"detected_by"`
-	PIDs     []int    `json:"pids,omitempty"`
-	Ports    []int    `json:"ports,omitempty"`
-	Configs  []string `json:"config_paths,omitempty"`
-	Version  string   `json:"version,omitempty"`
-	Cluster  string   `json:"cluster_hint,omitempty"`
-	Container string  `json:"container,omitempty"`
+	Kind      string   `json:"kind"`
+	Source    []string `json:"detected_by"`
+	PIDs      []int    `json:"pids,omitempty"`
+	Ports     []int    `json:"ports,omitempty"`
+	Configs   []string `json:"config_paths,omitempty"`
+	Version   string   `json:"version,omitempty"`
+	Cluster   string   `json:"cluster_hint,omitempty"`
+	Container string   `json:"container,omitempty"`
 }
