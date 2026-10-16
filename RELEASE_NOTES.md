@@ -1,8 +1,12 @@
-# Serveradar v0.1.1
+# Serveradar v0.1.2
 
 ## New
 
 - `serveradar update` — self-update to the latest GitHub release (SHA256-verified, atomic replace). `serveradar update --check` only reports.
+
+---
+
+# Serveradar v0.1.1
 
 ## Fixes
 
